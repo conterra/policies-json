@@ -1,1 +1,1 @@
-# polices-schema
+# policies-schema
