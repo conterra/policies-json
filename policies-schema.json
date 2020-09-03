@@ -81,22 +81,17 @@
             "type": "object",
             "properties": {
                 "type": {
-                    "enum": ["spatial", "layerfields"]
+                    "enum": [
+                        "spatial",
+                        "layerfields",
+                        "defquery"
+                    ]
                 }
             },
+            "required": [
+                "type"
+            ],
             "allOf": [
-                {
-                    "if": {
-                        "properties": {
-                            "type": {
-                                "const": "spatial"
-                            }
-                        }
-                    },
-                    "then": {
-                        "$ref": "#/definitions/spatialrestriction-type"
-                    }
-                },
                 {
                     "if": {
                         "properties": {
@@ -106,19 +101,41 @@
                         }
                     },
                     "then": {
-                        "$ref": "#/definitions/layerfieldsrestriction-type"
+                        "$ref": "#/definitions/layerfields-restriction-type"
+                    }
+                },
+                {
+                    "if": {
+                        "properties": {
+                            "type": {
+                                "const": "spatial"
+                            }
+                        }
+                    },
+                    "then": {
+                        "$ref": "#/definitions/spatial-restriction-type"
+                    }
+                },
+                {
+                    "if": {
+                        "properties": {
+                            "type": {
+                                "const": "defquery"
+                            }
+                        }
+                    },
+                    "then": {
+                        "$ref": "#/definitions/defquery-restriction-type"
                     }
                 }
             ]
         },
-        "layerfieldsrestriction-type": {
+        "layerfields-restriction-type": {
             "type": "object",
-
             "additionalProperties": false,
             "required": ["type", "hiddenfields"],
             "properties": {
                 "type": {
-                    "type": "string",
                     "const": "layerfields"
                 },
                 "hiddenfields": {
@@ -131,10 +148,9 @@
                 }
             }
         },
-        "spatialrestriction-type": {
+        "spatial-restriction-type": {
             "type": "object",
             "description": "A spatial restriction limiting access to a certain area.",
-            
             "required": [
                 "type",
                 "featuretypeurl",
@@ -144,7 +160,6 @@
             "additionalProperties": false,
             "properties": {
                 "type": {
-                    "type": "string",
                     "const": "spatial"
                 },
                 "featuretypeurl": {
@@ -170,10 +185,30 @@
                     "description": "For 'spatial' type. One of 'intersect' or 'within'"
                 }
             }
+        },
+        "defquery-restriction-type": {
+            "type": "object",
+            "description": "A definition query restriction limiting access to features matching a certain query.",
+            "additionalProperties": false,
+            "required": [
+                "type",
+                "query"
+            ],
+            "properties": {
+                "type": {
+                    "const": "defquery"
+                },
+                "query": {
+                    "type": "string",
+                    "description": "For 'defquery' type. A definition expression (WHERE clause).",
+                    "examples": [
+                        "country = 'Germany'"
+                    ]
+                }
+            }
         }
     },
     "type": "object",
-
     "required": [
         "policies"
     ],
@@ -205,16 +240,34 @@
         },
         "restrictions": {
             "type": "object",
-            "description": "Enumaration of restrictions by name. Can be referenced by policies.",
-            
+            "description": "Enumeration of restrictions by name. Can be referenced by policies.",
+            "propertyNames": {
+                "pattern": "^[A-Za-z][A-Za-z0-9_-]*$"
+            },
             "additionalProperties": {
-                "oneOf": [
-                    {
-                        "$ref": "#/definitions/restrictions-property-type"
+                "$ref": "#/definitions/restrictions-property-type"
+            },
+            "examples": [
+                {
+                    "layerfields_restriction_id": {
+                        "type": "layerfields",
+                        "hiddenfields": [
+                            "someField",
+                            "someOtherField"
+                        ]
+                    },
+                    "spatial_restriction_id": {
+                        "type": "spatial",
+                        "featuretypeurl": "https://myserver:6443/arcgis/rest/services/folder1/service1/FeatureServer/0",
+                        "featurequery": "state = 'California'",
+                        "operation": "intersect"
+                    },
+                    "defquery_restriction_id": {
+                        "type": "defquery",
+                        "query": "country = 'Germany'"
                     }
-                ]
-            }
-
+                }
+            ]
         }
     }
 }
