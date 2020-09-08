@@ -83,8 +83,8 @@
                 "type": {
                     "enum": [
                         "spatial",
-                        "layerfields",
-                        "defquery"
+                        "field",
+                        "feature"
                     ]
                 }
             },
@@ -96,12 +96,12 @@
                     "if": {
                         "properties": {
                             "type": {
-                                "const": "layerfields"
+                                "const": "field"
                             }
                         }
                     },
                     "then": {
-                        "$ref": "#/definitions/layerfields-restriction-type"
+                        "$ref": "#/definitions/field-restriction-type"
                     }
                 },
                 {
@@ -120,23 +120,23 @@
                     "if": {
                         "properties": {
                             "type": {
-                                "const": "defquery"
+                                "const": "feature"
                             }
                         }
                     },
                     "then": {
-                        "$ref": "#/definitions/defquery-restriction-type"
+                        "$ref": "#/definitions/feature-restriction-type"
                     }
                 }
             ]
         },
-        "layerfields-restriction-type": {
+        "field-restriction-type": {
             "type": "object",
             "additionalProperties": false,
             "required": ["type", "hiddenfields"],
             "properties": {
                 "type": {
-                    "const": "layerfields"
+                    "const": "field"
                 },
                 "hiddenfields": {
                     "type": "array",
@@ -186,7 +186,7 @@
                 }
             }
         },
-        "defquery-restriction-type": {
+        "feature-restriction-type": {
             "type": "object",
             "description": "A definition query restriction limiting access to features matching a certain query.",
             "additionalProperties": false,
@@ -196,11 +196,11 @@
             ],
             "properties": {
                 "type": {
-                    "const": "defquery"
+                    "const": "feature"
                 },
                 "query": {
                     "type": "string",
-                    "description": "For 'defquery' type. A definition expression (WHERE clause).",
+                    "description": "For 'feature' type. A definition expression (WHERE clause).",
                     "examples": [
                         "country = 'Germany'"
                     ]
@@ -249,8 +249,8 @@
             },
             "examples": [
                 {
-                    "layerfields_restriction_id": {
-                        "type": "layerfields",
+                    "field_restriction_id": {
+                        "type": "field",
                         "hiddenfields": [
                             "someField",
                             "someOtherField"
@@ -262,8 +262,8 @@
                         "featurequery": "state = 'California'",
                         "operation": "intersect"
                     },
-                    "defquery_restriction_id": {
-                        "type": "defquery",
+                    "feature_restriction_id": {
+                        "type": "feature",
                         "query": "country = 'Germany'"
                     }
                 }
