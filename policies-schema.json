@@ -248,6 +248,7 @@
                 "$ref": "#/definitions/restrictions-property-type"
             },
             "examples": [
+                {},
                 {
                     "field_restriction_id": {
                         "type": "field",
