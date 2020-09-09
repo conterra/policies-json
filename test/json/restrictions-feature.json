@@ -1,0 +1,9 @@
+{
+    "$schema": "../../schema/policies.schema.json",
+    "restrictions": {
+        "only-features-from-germany": {
+            "type": "feature",
+            "query": "country = 'Germany'"
+        }
+    }
+}

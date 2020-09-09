@@ -1,0 +1,11 @@
+{
+    "$schema": "../../schema/policies.schema.json",
+    "restrictions": {
+        "hide-title": {
+            "type": "field",
+            "hiddenfields": [
+                "title"
+            ]
+        }
+    }
+}

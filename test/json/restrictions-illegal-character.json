@@ -1,0 +1,9 @@
+{
+    "$schema": "../../schema/policies.schema.json",
+    "restrictions": {
+        "is$notvalid": {
+            "type": "field",
+            "hiddenfields": []
+        }
+    }
+}

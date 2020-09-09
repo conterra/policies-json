@@ -1,0 +1,10 @@
+{
+    "$schema": "../../schema/policies.schema.json",
+    "restrictions": {
+        "only-features-from-california": {
+            "type": "spatial",
+            "featuretypeurl": "https://myserver:6443/arcgis/rest/services/folder1/service1/FeatureServer/0",
+            "operation": "intersect"
+        }
+    }
+}
