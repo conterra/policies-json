@@ -5,7 +5,7 @@
     "scripts": {
         "docs-help": "jsonschema2md --help",
         "docs": "jsonschema2md --header false --schema-out '-' --out docs --input ./schema",
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "test": "mocha --reporter spec"
     },
     "repository": {
         "type": "git",
@@ -21,6 +21,9 @@
     },
     "homepage": "https://github.com/conterra/policies-schema#readme",
     "devDependencies": {
-        "@adobe/jsonschema2md": "^4.2.0"
+        "@adobe/jsonschema2md": "^4.2.0",
+        "ajv": "^6.12.4",
+        "chai": "^4.2.0",
+        "mocha": "^8.1.3"
     }
 }

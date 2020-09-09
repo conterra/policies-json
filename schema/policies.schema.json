@@ -1,7 +1,6 @@
 {
     "$schema": "http://json-schema.org/schema#",
     "$id": "https://raw.githubusercontent.com/conterra/policies-json/master/schema/policies.schema.json",
-
     "definitions": {
         "policy-layers-type": {
             "type": "array",
@@ -11,7 +10,10 @@
                 "description": "A layer ID"
             },
             "examples": [
-                ["0", "1"]
+                [
+                    "0",
+                    "1"
+                ]
             ],
             "description": "List of layer ID to grant access to as defined by a map service."
         },
@@ -21,22 +23,30 @@
             "items": {
                 "anyOf": [
                     {
-                        "enum": ["enhancedSecurity_any"],
+                        "enum": [
+                            "enhancedSecurity_any"
+                        ],
                         "description": "Pre-defined role granting access to any user"
                     },
                     {
-                        "enum": ["enhancedSecurity_authenticated"],
+                        "enum": [
+                            "enhancedSecurity_authenticated"
+                        ],
                         "description": "Pre-defined role granting access to any authenticated user"
                     },
                     {
                         "type": "string",
-                        "examples": ["<portal_role_id>"],
+                        "examples": [
+                            "<portal_role_id>"
+                        ],
                         "description": "A role ID"
                     }
                 ]
             },
             "examples": [
-                [""]
+                [
+                    ""
+                ]
             ],
             "description": "List of role IDs that should be able to access the defined layers."
         },
@@ -47,7 +57,9 @@
                 "type": "string"
             },
             "examples": [
-                [""]
+                [
+                    ""
+                ]
             ],
             "description": "List of restrictions IDs defined in the top-level 'restrictions' array of this file."
         },
@@ -72,8 +84,12 @@
             "examples": [
                 {},
                 {
-                    "layers": [""],
-                    "roles": [""]
+                    "layers": [
+                        ""
+                    ],
+                    "roles": [
+                        ""
+                    ]
                 }
             ]
         },
@@ -133,7 +149,10 @@
         "field-restriction-type": {
             "type": "object",
             "additionalProperties": false,
-            "required": ["type", "hiddenfields"],
+            "required": [
+                "type",
+                "hiddenfields"
+            ],
             "properties": {
                 "type": {
                     "const": "field"
@@ -209,9 +228,7 @@
         }
     },
     "type": "object",
-    "required": [
-        "policies"
-    ],
+    "required": [],
     "additionalProperties": false,
     "properties": {
         "$schema": {
@@ -226,7 +243,6 @@
         "properties": {
             "type": "object",
             "description": "Enumeration of properties. Can by referenced as '${property_name}' in other values.",
-
             "additionalProperties": {
                 "oneOf": [
                     {
@@ -234,9 +250,11 @@
                     }
                 ]
             },
-            "examples": [{
-                "propName": "propValue"
-            }]
+            "examples": [
+                {
+                    "propName": "propValue"
+                }
+            ]
         },
         "restrictions": {
             "type": "object",
