@@ -4,7 +4,7 @@
     "description": "json schema for security.manager policies",
     "scripts": {
         "docs-help": "jsonschema2md --help",
-        "docs": "jsonschema2md --header false --out docs --input .",
+        "docs": "jsonschema2md --header false --schema-out '-' --out docs --input ./schema",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "repository": {

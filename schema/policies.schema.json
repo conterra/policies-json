@@ -1,6 +1,6 @@
 {
     "$schema": "http://json-schema.org/schema#",
-    "$id": "https://raw.githubusercontent.com/conterra/policies-schema/master/policies-schema.json",
+    "$id": "https://raw.githubusercontent.com/conterra/policies-schema/master/schema/policies.schema.json",
     
     "definitions": {
         "policy-layers-type": {
