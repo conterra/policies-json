@@ -2,7 +2,7 @@
 
 The policies schema defines the [JSON schema](https://json-schema.org/) used for service access policies in security.manager.
 
-Referencing the [policies schema definition file](./policies-schema.json) in policies JSON files serves two purposes:
+Referencing the [policies schema definition file](./policies.schema.json) in policies JSON files serves two purposes:
 
 1. **Validation** of policies JSON regarding
    * structure
@@ -17,7 +17,7 @@ An instance of the schema may look like this:
 
 ```json
 {
-    "$schema": "https://raw.githubusercontent.com/conterra/policies-schema/master/policies-schema.json",
+    "$schema": "https://raw.githubusercontent.com/conterra/policies-schema/master/policies.schema.json",
     "policies": [
         {
             "layers": ["0", "1", "2"],
