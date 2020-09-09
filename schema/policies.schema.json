@@ -1,7 +1,7 @@
 {
     "$schema": "http://json-schema.org/schema#",
-    "$id": "https://raw.githubusercontent.com/conterra/policies-schema/master/schema/policies.schema.json",
-    
+    "$id": "https://raw.githubusercontent.com/conterra/policies-json/master/schema/policies.schema.json",
+
     "definitions": {
         "policy-layers-type": {
             "type": "array",
@@ -226,7 +226,7 @@
         "properties": {
             "type": "object",
             "description": "Enumeration of properties. Can by referenced as '${property_name}' in other values.",
-            
+
             "additionalProperties": {
                 "oneOf": [
                     {
