@@ -42,3 +42,5 @@ An instance of the schema may look like this:
     }
 }
 ```
+
+Please see the created schema documentation for more details [Documentation](./docs/policies.md).
