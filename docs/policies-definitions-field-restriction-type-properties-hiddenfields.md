@@ -1,0 +1,3 @@
+## hiddenfields Type
+
+`string[]`

@@ -3,9 +3,11 @@
     "$id": "https://raw.githubusercontent.com/conterra/policies-json/master/schema/policies.schema.json",
     "definitions": {
         "policy-layers-type": {
+            "title": "layers array",
             "type": "array",
             "uniqueItems": true,
             "items": {
+                "title": "layer id",
                 "type": "string",
                 "description": "A layer ID"
             },
@@ -18,6 +20,7 @@
             "description": "List of layer ID to grant access to as defined by a map service."
         },
         "policy-roles-type": {
+            "title": "roles array",
             "type": "array",
             "uniqueItems": true,
             "items": {
@@ -26,12 +29,14 @@
                         "enum": [
                             "enhancedSecurity_any"
                         ],
+                        "title": "any user",
                         "description": "Pre-defined role granting access to any user"
                     },
                     {
                         "enum": [
                             "enhancedSecurity_authenticated"
                         ],
+                        "title": "any authenticated user",
                         "description": "Pre-defined role granting access to any authenticated user"
                     },
                     {
@@ -39,21 +44,24 @@
                         "examples": [
                             "<portal_role_id>"
                         ],
+                        "title": "exact role",
                         "description": "A role ID"
                     }
                 ]
             },
             "examples": [
                 [
-                    ""
+                    "my-role"
                 ]
             ],
             "description": "List of role IDs that should be able to access the defined layers."
         },
         "policy-restrictions-type": {
+            "title": "restrictions id array",
             "type": "array",
             "uniqueItems": true,
             "items": {
+                "title": "restriction id",
                 "type": "string"
             },
             "examples": [
@@ -64,6 +72,7 @@
             "description": "List of restrictions IDs defined in the top-level 'restrictions' array of this file."
         },
         "policies-item-type": {
+            "title": "policy",
             "type": "object",
             "additionalProperties": false,
             "required": [
@@ -72,12 +81,15 @@
             ],
             "properties": {
                 "layers": {
+                    "title": "policy.layers",
                     "$ref": "#/definitions/policy-layers-type"
                 },
                 "roles": {
+                    "title": "policy.roles",
                     "$ref": "#/definitions/policy-roles-type"
                 },
                 "restrictions": {
+                    "title": "policy.restrictions",
                     "$ref": "#/definitions/policy-restrictions-type"
                 }
             },
@@ -94,9 +106,12 @@
             ]
         },
         "restrictions-property-type": {
+            "title": "abstract restriction",
             "type": "object",
             "properties": {
                 "type": {
+                    "title": "restriction.type",
+                    "type": "string",
                     "enum": [
                         "spatial",
                         "field",
@@ -227,6 +242,7 @@
             }
         }
     },
+    "title": "service policies",
     "type": "object",
     "required": [],
     "additionalProperties": false,
@@ -235,12 +251,14 @@
             "type": "string"
         },
         "policies": {
+            "title": "policies",
             "type": "array",
             "items": {
                 "$ref": "#/definitions/policies-item-type"
             }
         },
         "properties": {
+            "title": "properties",
             "type": "object",
             "description": "Enumeration of properties. Can by referenced as '${property_name}' in other values.",
             "additionalProperties": {
@@ -257,6 +275,7 @@
             ]
         },
         "restrictions": {
+            "title": "restrictions",
             "type": "object",
             "description": "Enumeration of restrictions by name. Can be referenced by policies.",
             "propertyNames": {

@@ -4,7 +4,8 @@
     "description": "json schema for security.manager policies",
     "scripts": {
         "docs-help": "jsonschema2md --help",
-        "docs": "jsonschema2md --header false --schema-out '-' --out docs --input ./schema",
+        "docs-clean": "rmdir /S/Q docs && mkdir docs",
+        "docs": "jsonschema2md -n --header false --schema-out '-' --out docs --input ./schema",
         "test": "mocha --reporter spec"
     },
     "repository": {
