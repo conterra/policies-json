@@ -1,3 +1,0 @@
-## hiddenfields Type
-
-`string[]`

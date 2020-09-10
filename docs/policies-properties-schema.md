@@ -1,3 +1,0 @@
-## $schema Type
-
-`string`
