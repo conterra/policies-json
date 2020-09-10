@@ -2,77 +2,69 @@
     "$schema": "http://json-schema.org/schema#",
     "$id": "https://raw.githubusercontent.com/conterra/policies-json/master/schema/policies.schema.json",
     "definitions": {
-        "policy-layers-type": {
-            "title": "layers array",
+        "id-name": {
+            "type": "string",
+            "pattern": "^[A-Za-z][A-Za-z0-9_-]*$"
+        },
+        "property-replacement-value": {
+            "type": "string",
+            "pattern": "^\\$\\{[A-Za-z][A-Za-z0-9_.-]*\\}$"
+        },
+        "non-empty-string": {
+            "type": "string",
+            "minLength": 1
+        },
+        "unique-string-array": {
             "type": "array",
             "uniqueItems": true,
             "items": {
-                "title": "layer id",
-                "type": "string",
-                "description": "A layer ID"
+                "$ref": "#/definitions/non-empty-string"
             },
+            "description": "String array."
+        },
+        "unique-non-empty-string-array": {
+            "allOf": [
+                {
+                    "$ref": "#/definitions/unique-string-array"
+                },
+                {
+                    "type": "array",
+                    "minItems": 1
+                }
+            ],
+            "description": "Non empty string array."
+        },
+        "policy-layers-type": {
+            "$ref": "#/definitions/unique-non-empty-string-array",
+            "description": "List of layer IDs to grant access to as defined by a map service.",
             "examples": [
                 [
                     "0",
                     "1"
                 ]
-            ],
-            "description": "List of layer ID to grant access to as defined by a map service."
+            ]
         },
         "policy-roles-type": {
-            "title": "roles array",
-            "type": "array",
-            "uniqueItems": true,
-            "items": {
-                "anyOf": [
-                    {
-                        "enum": [
-                            "enhancedSecurity_any"
-                        ],
-                        "title": "any user",
-                        "description": "Pre-defined role granting access to any user"
-                    },
-                    {
-                        "enum": [
-                            "enhancedSecurity_authenticated"
-                        ],
-                        "title": "any authenticated user",
-                        "description": "Pre-defined role granting access to any authenticated user"
-                    },
-                    {
-                        "type": "string",
-                        "examples": [
-                            "<portal_role_id>"
-                        ],
-                        "title": "exact role",
-                        "description": "A role ID"
-                    }
-                ]
-            },
+            "$ref": "#/definitions/unique-non-empty-string-array",
             "examples": [
                 [
+                    "enhancedSecurity_any",
+                    "enhancedSecurity_authenticated",
                     "my-role"
                 ]
             ],
             "description": "List of role IDs that should be able to access the defined layers."
         },
         "policy-restrictions-type": {
-            "title": "restrictions id array",
-            "type": "array",
-            "uniqueItems": true,
-            "items": {
-                "title": "restriction id",
-                "type": "string"
-            },
+            "$ref": "#/definitions/unique-string-array",
             "examples": [
                 [
-                    ""
+                    "my-restriction"
                 ]
             ],
             "description": "List of restrictions IDs defined in the top-level 'restrictions' array of this file."
         },
-        "policies-item-type": {
-            "title": "policy",
+        "policy-type": {
             "type": "object",
             "additionalProperties": false,
             "required": [
@@ -81,88 +73,43 @@
             ],
             "properties": {
                 "layers": {
-                    "title": "policy.layers",
                     "$ref": "#/definitions/policy-layers-type"
                 },
                 "roles": {
-                    "title": "policy.roles",
                     "$ref": "#/definitions/policy-roles-type"
                 },
                 "restrictions": {
-                    "title": "policy.restrictions",
                     "$ref": "#/definitions/policy-restrictions-type"
                 }
             },
             "examples": [
-                {},
                 {
                     "layers": [
-                        ""
+                        "0"
                     ],
                     "roles": [
-                        ""
+                        "my-role"
                     ]
                 }
             ]
         },
-        "restrictions-property-type": {
-            "title": "abstract restriction",
+        "restriction-type": {
             "type": "object",
-            "properties": {
-                "type": {
-                    "title": "restriction.type",
-                    "type": "string",
-                    "enum": [
-                        "spatial",
-                        "field",
-                        "feature"
-                    ]
-                }
-            },
-            "required": [
-                "type"
-            ],
-            "allOf": [
+            "oneOf": [
                 {
-                    "if": {
-                        "properties": {
-                            "type": {
-                                "const": "field"
-                            }
-                        }
-                    },
-                    "then": {
-                        "$ref": "#/definitions/field-restriction-type"
-                    }
+                    "$ref": "#/definitions/spatial-restriction-type"
                 },
                 {
-                    "if": {
-                        "properties": {
-                            "type": {
-                                "const": "spatial"
-                            }
-                        }
-                    },
-                    "then": {
-                        "$ref": "#/definitions/spatial-restriction-type"
-                    }
+                    "$ref": "#/definitions/field-restriction-type"
                 },
                 {
-                    "if": {
-                        "properties": {
-                            "type": {
-                                "const": "feature"
-                            }
-                        }
-                    },
-                    "then": {
-                        "$ref": "#/definitions/feature-restriction-type"
-                    }
+                    "$ref": "#/definitions/feature-restriction-type"
                 }
             ]
         },
         "field-restriction-type": {
             "type": "object",
+            "description": "A field restriction limiting access to available fields.",
             "additionalProperties": false,
             "required": [
                 "type",
@@ -170,14 +117,11 @@
             ],
             "properties": {
                 "type": {
+                    "type": "string",
                     "const": "field"
                 },
                 "hiddenfields": {
-                    "type": "array",
-                    "items": {
-                        "type": "string",
-                        "description": "A field name"
-                    },
+                    "$ref": "#/definitions/unique-non-empty-string-array",
                     "description": "List of field names as defined for a map service layer or table."
                 }
             }
@@ -188,31 +132,42 @@
             "required": [
                 "type",
                 "featuretypeurl",
-                "featurequery",
-                "operation"
+                "featurequery"
             ],
             "additionalProperties": false,
             "properties": {
                 "type": {
+                    "type": "string",
                     "const": "spatial"
                 },
                 "featuretypeurl": {
-                    "type": "string",
+                    "$ref": "#/definitions/non-empty-string",
                     "examples": [
                         "https://myserver:6443/arcgis/rest/services/folder1/service1/FeatureServer/0"
                     ],
                     "description": "For 'spatial' type. URL that points to feature service layer."
                 },
                 "featurequery": {
-                    "type": "string",
+                    "$ref": "#/definitions/non-empty-string",
                     "examples": [
                         "state = 'California'"
                     ],
                     "description": "For 'spatial' type. A definition query that selects the features of a feature layer."
                 },
                 "operation": {
-                    "type": "string",
-                    "enum": [
+                    "oneOf": [
+                        {
+                            "type": "string",
+                            "enum": [
+                                "intersect",
+                                "within"
+                            ]
+                        },
+                        {
+                            "$ref": "#/definitions/property-replacement-value"
+                        }
+                    ],
+                    "examples": [
                         "intersect",
                         "within"
                     ],
@@ -230,62 +185,28 @@
             ],
             "properties": {
                 "type": {
+                    "type": "string",
                     "const": "feature"
                 },
                 "query": {
-                    "type": "string",
+                    "$ref": "#/definitions/non-empty-string",
                     "description": "For 'feature' type. A definition expression (WHERE clause).",
                     "examples": [
                         "country = 'Germany'"
                     ]
                 }
             }
-        }
-    },
-    "title": "service policies",
-    "type": "object",
-    "required": [],
-    "additionalProperties": false,
-    "properties": {
-        "$schema": {
-            "type": "string"
         },
-        "policies": {
-            "title": "policies",
-            "type": "array",
-            "items": {
-                "$ref": "#/definitions/policies-item-type"
-            }
-        },
-        "properties": {
-            "title": "properties",
-            "type": "object",
-            "description": "Enumeration of properties. Can by referenced as '${property_name}' in other values.",
-            "additionalProperties": {
-                "oneOf": [
-                    {
-                        "type": "string"
-                    }
-                ]
-            },
-            "examples": [
-                {
-                    "propName": "propValue"
-                }
-            ]
-        },
-        "restrictions": {
-            "title": "restrictions",
+        "restriction-definitions-type": {
             "type": "object",
             "description": "Enumeration of restrictions by name. Can be referenced by policies.",
             "propertyNames": {
-                "pattern": "^[A-Za-z][A-Za-z0-9_-]*$"
+                "$ref": "#/definitions/id-name"
             },
             "additionalProperties": {
-                "$ref": "#/definitions/restrictions-property-type"
+                "$ref": "#/definitions/restriction-type"
             },
             "examples": [
-                {},
                 {
                     "field_restriction_id": {
                         "type": "field",
@@ -306,6 +227,41 @@
                     }
                 }
             ]
+        },
+        "properties-type": {
+            "type": "object",
+            "description": "Enumeration of properties. Can by referenced as '${property_name}' in other values.",
+            "additionalProperties": {
+                "type": "string"
+            },
+            "propertyNames": {
+                "$ref": "#/definitions/id-name"
+            },
+            "examples": [
+                {
+                    "propName": "propValue"
+                }
+            ]
+        }
+    },
+    "type": "object",
+    "required": [],
+    "additionalProperties": false,
+    "properties": {
+        "$schema": {
+            "type": "string"
+        },
+        "properties": {
+            "$ref": "#/definitions/properties-type"
+        },
+        "restrictions": {
+            "$ref": "#/definitions/restriction-definitions-type"
+        },
+        "policies": {
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/policy-type"
+            }
         }
     }
 }

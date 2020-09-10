@@ -1,0 +1,38 @@
+{
+    "$schema": "../../schema/policies.schema.json",
+    "properties": {
+        "key1": "a value",
+        "key2": "value from environment ${env.property}"
+    },
+    "restrictions": {
+        "field_restriction_id": {
+            "type": "field",
+            "hiddenfields": [
+                "${key1}"
+            ]
+        },
+        "spatial_restriction_id": {
+            "type": "spatial",
+            "featuretypeurl": "${key2}",
+            "featurequery": "${otherkey}",
+            "operation": "${operations-key}"
+        },
+        "feature_restriction_id": {
+            "type": "feature",
+            "query": "${querykey}"
+        }
+    },
+    "policies": [
+        {
+            "layers": [
+                "${layerkey}"
+            ],
+            "roles": [
+                "${rolekey}"
+            ],
+            "restrictions": [
+                "${restrictionkey}"
+            ]
+        }
+    ]
+}

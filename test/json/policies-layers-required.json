@@ -1,0 +1,10 @@
+{
+    "$schema": "../../schema/policies.schema.json",
+    "policies": [
+        {
+            "roles": [
+                "test"
+            ]
+        }
+    ]
+}
