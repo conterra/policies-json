@@ -36,7 +36,7 @@
         },
         "policy-layers-type": {
             "$ref": "#/definitions/unique-non-empty-string-array",
-            "description": "List of layer IDs, layer ID intervals or '*' to grant access to as defined by a map service.",
+            "description": "List of layer IDs to grant access to as defined by a map service. Supports individual IDs, intervals, or '*' for 'any layer'.",
             "examples": [
                 [
                     "0",
@@ -68,7 +68,7 @@
                     "my-restriction"
                 ]
             ],
-            "description": "List of restrictions IDs defined in the top-level 'restrictions' array of this file."
+            "description": "List of restriction IDs defined in the top-level 'restrictions' array of this file."
         },
         "policy-type": {
             "type": "object",
