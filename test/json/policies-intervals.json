@@ -1,0 +1,14 @@
+{
+    "$schema": "../../schema/policies.schema.json",
+    "policies": [
+        {
+            "layers": [
+                "3-4",
+                "10-99"
+            ],
+            "roles": [
+                "test"
+            ]
+        }
+    ]
+}

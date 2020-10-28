@@ -36,11 +36,17 @@
         },
         "policy-layers-type": {
             "$ref": "#/definitions/unique-non-empty-string-array",
-            "description": "List of layer IDs to grant access to as defined by a map service.",
+            "description": "List of layer IDs, layer ID intervals or '*' to grant access to as defined by a map service.",
             "examples": [
                 [
                     "0",
                     "1"
+                ],
+                [
+                    "*"
+                ],
+                [
+                    "1-3"
                 ]
             ]
         },

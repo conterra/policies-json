@@ -65,6 +65,12 @@ describe("policies.schema.json", function () {
     it("should accept a simple policy with layer and role", function () {
         assert.isTrue(validate(require("./json/policies.json")));
     });
+    it("should accept a simple policy with layers '*' and role", function () {
+        assert.isTrue(validate(require("./json/policies-any.json")));
+    });
+    it("should accept a simple policy with layer intervals and role", function () {
+        assert.isTrue(validate(require("./json/policies-intervals.json")));
+    });
     it("should not accept a policy with empty layer value", function () {
         assert.isFalse(validate(require("./json/policies-layers-no-empty-value.json")));
     });
