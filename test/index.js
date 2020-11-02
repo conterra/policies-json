@@ -38,6 +38,9 @@ describe("policies.schema.json", function () {
     it("should accept a spatial restriction without operation field", function () {
         assert.isTrue(validate(require("./json/restrictions-spatial-operation-optional.json")));
     });
+    it("should accept a spatial restriction with a relative url", function () {
+        assert.isTrue(validate(require("./json/restrictions-spatial-relative-url.json")));
+    });
     it("should not accept a spatial restriction with unknown property", function () {
         assert.isFalse(validate(require("./json/restrictions-spatial-unknown-property.json")));
     });

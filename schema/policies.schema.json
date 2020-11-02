@@ -149,9 +149,10 @@
                 "featuretypeurl": {
                     "$ref": "#/definitions/non-empty-string",
                     "examples": [
-                        "https://myserver:6443/arcgis/rest/services/folder1/service1/FeatureServer/0"
+                        "https://myserver:6443/arcgis/rest/services/folder1/service1/FeatureServer/0",
+                        "/folder1/service1/FeatureServer/0"
                     ],
-                    "description": "For 'spatial' type. URL that points to feature service layer."
+                    "description": "For 'spatial' type. URL that points to feature service layer. A relative reference is allowed."
                 },
                 "featurequery": {
                     "$ref": "#/definitions/non-empty-string",
