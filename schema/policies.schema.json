@@ -8,7 +8,25 @@
         },
         "property-replacement-value": {
             "type": "string",
-            "pattern": "^\\$\\{[A-Za-z][A-Za-z0-9_.-]*\\}$"
+            "pattern": "^\\$\\{[A-Za-z][A-Za-z0-9_.-]*\\}$",
+            "defaultSnippets": [
+                {
+                    "label": "Property reference...",
+                    "markdownDescription": "Reference to a value defined as property.",
+                    "body": "${${1:property_key}}"
+                }
+            ]
+        },
+        "non-empty-string-or-reference": {
+            "anyOf": [
+                {
+                    "type": "string",
+                    "minLength": 1
+                },
+                {
+                    "$ref": "#/definitions/property-replacement-value"
+                }
+            ]
         },
         "non-empty-string": {
             "type": "string",
@@ -20,7 +38,7 @@
             "items": {
                 "$ref": "#/definitions/non-empty-string"
             },
-            "description": "String array."
+            "$comment": "String array."
         },
         "unique-non-empty-string-array": {
             "allOf": [
@@ -32,42 +50,85 @@
                     "minItems": 1
                 }
             ],
-            "description": "Non empty string array."
+            "$comment": "Non empty string array."
         },
-        "policy-layers-type": {
-            "$ref": "#/definitions/unique-non-empty-string-array",
-            "description": "List of layer IDs to grant access to as defined by a map service. Supports individual IDs, intervals, or '*' for 'any layer'.",
-            "examples": [
-                [
-                    "0",
-                    "1"
-                ],
-                [
-                    "*"
-                ],
-                [
-                    "1-3"
-                ]
+        "known-roles-type": {
+            "type": "string",
+            "enum": [
+                "enhancedSecurity_any",
+                "enhancedSecurity_authenticated"
+            ],
+            "markdownEnumDescriptions": [
+                "Any user, even users not signed in.",
+                "Any user signed in to the portal organization."
             ]
         },
         "policy-roles-type": {
-            "$ref": "#/definitions/unique-non-empty-string-array",
-            "examples": [
-                [
-                    "enhancedSecurity_any",
-                    "enhancedSecurity_authenticated",
-                    "my-role"
+            "type": "array",
+            "uniqueItems": true,
+            "minItems": 1,
+            "items": {
+                "anyOf": [
+                    {
+                        "$ref": "#/definitions/known-roles-type"
+                    },
+                    {
+                        "$ref": "#/definitions/non-empty-string-or-reference",
+                        "defaultSnippets": [
+                            {
+                                "label": "Role name...",
+                                "body": "${1:rolename}"
+                            }
+                        ]
+                    }
                 ]
-            ],
+            },
             "description": "List of role IDs that should be able to access the defined layers."
         },
-        "policy-restrictions-type": {
-            "$ref": "#/definitions/unique-string-array",
-            "examples": [
-                [
-                    "my-restriction"
+        "policy-layers-type": {
+            "type": "array",
+            "uniqueItems": true,
+            "items": {
+                "anyOf": [
+                    {
+                        "type": "string",
+                        "enum": [
+                            "*"
+                        ],
+                        "markdownEnumDescriptions": [
+                            "Allow access to *any* layer."
+                        ]
+                    },
+                    {
+                        "$ref": "#/definitions/non-empty-string-or-reference",
+                        "defaultSnippets": [
+                            {
+                                "label": "Layer ID...",
+                                "body": "${1:layer_id}"
+                            }
+                        ],
+                        "examples": [
+                            "0",
+                            "0-2"
+                        ]        
+                    }
                 ]
-            ],
+            },
+            "minItems": 1,
+            "description": "List of layer IDs to grant access to as defined by a map service. Supports individual IDs, intervals, or '*' for 'any layer'."
+        },
+        "policy-restrictions-type": {
+            "type": "array",
+            "uniqueItems": true,
+            "items": {
+                "$ref": "#/definitions/non-empty-string",
+                "defaultSnippets": [
+                    {
+                        "label": "Restriction reference...",
+                        "body": "${1:restriction_key}"
+                    }
+                ]
+            },
             "description": "List of restriction IDs defined in the top-level 'restrictions' array of this file."
         },
         "policy-type": {
@@ -88,15 +149,16 @@
                     "$ref": "#/definitions/policy-restrictions-type"
                 }
             },
-            "examples": [
+            "defaultSnippets": [
                 {
-                    "layers": [
-                        "0"
-                    ],
-                    "roles": [
-                        "my-role"
-                    ]
+                    "body": {
+                        "layers": ["$1"],
+                        "roles": []
+                    }
                 }
+            ],
+            "examples": [
+                {}
             ]
         },
         "restriction-type": {
@@ -124,10 +186,23 @@
                 "type",
                 "hiddenfields"
             ],
+            "defaultSnippets": [
+                {
+                    "label": "Field restriction...",
+                    "description": "Adds a new field restriction limiting access to the fields of a layer.",
+                    "body": {
+                        "type": "field",
+                        "hiddenfields": [
+                            "${1:field_name}"
+                        ]
+                    }
+                }
+            ],
             "properties": {
                 "type": {
                     "type": "string",
-                    "const": "field"
+                    "const": "field",
+                    "suggestSortText": "a"
                 },
                 "hiddenfields": {
                     "$ref": "#/definitions/unique-non-empty-string-array",
@@ -143,11 +218,23 @@
                 "featuretypeurl",
                 "featurequery"
             ],
+            "defaultSnippets": [
+                {
+                    "label": "Spatial restriction...",
+                    "description": "Adds a new spatial restriction limiting access to a certain area.",
+                    "body": {
+                        "type": "spatial",
+                        "featuretypeurl": "$1",
+                        "featurequery": "$2"
+                    }
+                }
+            ],
             "additionalProperties": false,
             "properties": {
                 "type": {
                     "type": "string",
-                    "const": "spatial"
+                    "const": "spatial",
+                    "suggestSortText": "a"
                 },
                 "featuretypeurl": {
                     "$ref": "#/definitions/non-empty-string",
@@ -155,14 +242,16 @@
                         "https://myserver:6443/arcgis/rest/services/folder1/service1/FeatureServer/0",
                         "/folder1/service1/FeatureServer/0"
                     ],
-                    "description": "For 'spatial' type. URL that points to feature service layer. A relative reference is allowed."
+                    "description": "URL that points to feature service layer. A relative reference is allowed."
                 },
                 "featurequery": {
                     "$ref": "#/definitions/non-empty-string",
                     "examples": [
-                        "state = 'California'"
+                        "state = 'California'",
+                        "state like 'C%'",
+                        "state in ['California', 'Nevada']"
                     ],
-                    "description": "For 'spatial' type. A definition query that selects the features of a feature layer."
+                    "description": "A definition query that selects the features of a feature layer. These features define the allowed area."
                 },
                 "operation": {
                     "oneOf": [
@@ -171,38 +260,51 @@
                             "enum": [
                                 "intersect",
                                 "within"
+                            ],
+                            "markdownEnumDescriptions": [
+                                "Restrict access to features that are inside or intersect the allowed area.",
+                                "Restrict access to features that are *completely* inside the allowed area."
                             ]
                         },
                         {
                             "$ref": "#/definitions/property-replacement-value"
                         }
                     ],
-                    "examples": [
-                        "intersect",
-                        "within"
-                    ],
-                    "description": "For 'spatial' type. One of 'intersect' or 'within'"
+                    "description": "One of 'intersect' or 'within'. Defaults to 'intersect'."
                 }
             }
         },
         "feature-restriction-type": {
             "type": "object",
-            "description": "A definition query restriction limiting access to features matching a certain query.",
+            "description": "A feature restriction limiting access to features matching a certain query.",
             "additionalProperties": false,
             "required": [
                 "type",
                 "query"
             ],
+            "defaultSnippets": [
+                {
+                    "label": "Feature restriction...",
+                    "description": "Adds a new feature restriction limiting access to features matching a certain query.",
+                    "body": {
+                        "type": "feature",
+                        "query": "$1"
+                    }
+                }
+            ],
             "properties": {
                 "type": {
                     "type": "string",
-                    "const": "feature"
+                    "const": "feature",
+                    "suggestSortText": "a"
                 },
                 "query": {
                     "$ref": "#/definitions/non-empty-string",
-                    "description": "For 'feature' type. A definition expression (WHERE clause).",
+                    "description": "A definition expression (WHERE clause) as accepted by ArcGIS Server.",
                     "examples": [
-                        "country = 'Germany'"
+                        "country = 'Germany'",
+                        "country like 'G%'",
+                        "country in ['Germany', 'France']"
                     ]
                 }
             }
@@ -255,6 +357,7 @@
         "properties-type": {
             "type": "object",
             "description": "Enumeration of properties. Can by referenced as '${property_name}' in other values.",
+            "markdownDescription": "Enumeration of properties. Can by referenced as `${property_name}` in other value.",
             "additionalProperties": {
                 "type": "string"
             },
