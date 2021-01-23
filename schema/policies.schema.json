@@ -4,7 +4,8 @@
     "definitions": {
         "id-name": {
             "type": "string",
-            "pattern": "^[A-Za-z][A-Za-z0-9_-]*$"
+            "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+            "patternErrorMessage": "Key must start with a letter. Additionally allowed characters: a-z, A-Z, 0-9, '_', '-'"
         },
         "property-replacement-value": {
             "type": "string",
@@ -70,9 +71,6 @@
             "items": {
                 "anyOf": [
                     {
-                        "$ref": "#/definitions/known-roles-type"
-                    },
-                    {
                         "$ref": "#/definitions/non-empty-string-or-reference",
                         "defaultSnippets": [
                             {
@@ -80,6 +78,9 @@
                                 "body": "${1:rolename}"
                             }
                         ]
+                    },
+                    {
+                        "$ref": "#/definitions/known-roles-type"
                     }
                 ]
             },
@@ -90,15 +91,6 @@
             "uniqueItems": true,
             "items": {
                 "anyOf": [
-                    {
-                        "type": "string",
-                        "enum": [
-                            "*"
-                        ],
-                        "markdownEnumDescriptions": [
-                            "Allow access to *any* layer."
-                        ]
-                    },
                     {
                         "$ref": "#/definitions/non-empty-string-or-reference",
                         "defaultSnippets": [
@@ -111,7 +103,17 @@
                             "0",
                             "0-2"
                         ]        
+                    },
+                    {
+                        "type": "string",
+                        "enum": [
+                            "*"
+                        ],
+                        "markdownEnumDescriptions": [
+                            "Allow access to *any* layer."
+                        ]
                     }
+
                 ]
             },
             "minItems": 1,
@@ -129,7 +131,8 @@
                     }
                 ]
             },
-            "description": "List of restriction IDs defined in the top-level 'restrictions' array of this file."
+            "description": "List of restriction IDs defined in the top-level 'restrictions' array of this file.",
+            "markdownDescription": "List of restriction IDs defined in the top-level `restrictions` array of this file."
         },
         "policy-type": {
             "type": "object",
@@ -224,8 +227,8 @@
                     "description": "Adds a new spatial restriction limiting access to a certain area.",
                     "body": {
                         "type": "spatial",
-                        "featuretypeurl": "$1",
-                        "featurequery": "$2"
+                        "featuretypeurl": "${1:https://myserver:6443/arcgis/rest/services/folder1/service1/FeatureServer/0}",
+                        "featurequery": "${2:state = 'California'}"
                     }
                 }
             ],
@@ -251,7 +254,8 @@
                         "state like 'C%'",
                         "state in ['California', 'Nevada']"
                     ],
-                    "description": "A definition query that selects the features of a feature layer. These features define the allowed area."
+                    "description": "A definition query that selects the features of a feature layer defined by 'featuretypeurl'. These features define the allowed area.",
+                    "markdownDescription": "A definition query that selects the features of a feature layer defined by `featuretypeurl`. These features define the allowed area."
                 },
                 "operation": {
                     "oneOf": [
@@ -270,7 +274,8 @@
                             "$ref": "#/definitions/property-replacement-value"
                         }
                     ],
-                    "description": "One of 'intersect' or 'within'. Defaults to 'intersect'."
+                    "description": "One of 'intersect' or 'within'. Defaults to 'intersect'.",
+                    "markdownDescription": "One of `intersect` or `within`. Defaults to `intersect`."
                 }
             }
         },
@@ -300,7 +305,7 @@
                 },
                 "query": {
                     "$ref": "#/definitions/non-empty-string",
-                    "description": "A definition expression (WHERE clause) as accepted by ArcGIS Server.",
+                    "description": "A definition expression (WHERE clause) that selects the allowed features.",
                     "examples": [
                         "country = 'Germany'",
                         "country like 'G%'",
@@ -333,41 +338,31 @@
                 "$ref": "#/definitions/restriction-type"
             },
             "examples": [
-                {
-                    "field_restriction_id": {
-                        "type": "field",
-                        "hiddenfields": [
-                            "someField",
-                            "someOtherField"
-                        ]
-                    },
-                    "spatial_restriction_id": {
-                        "type": "spatial",
-                        "featuretypeurl": "https://myserver:6443/arcgis/rest/services/folder1/service1/FeatureServer/0",
-                        "featurequery": "state = 'California'",
-                        "operation": "intersect"
-                    },
-                    "feature_restriction_id": {
-                        "type": "feature",
-                        "query": "country = 'Germany'"
-                    }
-                }
+                {}
             ]
         },
         "properties-type": {
             "type": "object",
-            "description": "Enumeration of properties. Can by referenced as '${property_name}' in other values.",
-            "markdownDescription": "Enumeration of properties. Can by referenced as `${property_name}` in other value.",
+            "description": "Enumeration of properties. Can be referenced as '${property_key}' in other values.",
+            "markdownDescription": "Enumeration of properties. Can be referenced as `${property_key}` in other values.",
             "additionalProperties": {
-                "type": "string"
+                "type": "string",
+                "description": "A property that can  be referenced as '${property_key}' in other values.",
+                "markdownDescription": "A property that can be referenced as `${property_key}` in other values."
             },
             "propertyNames": {
                 "$ref": "#/definitions/id-name"
             },
-            "examples": [
+            "defaultSnippets": [
                 {
-                    "propName": "propValue"
+                    "label": "New property...",
+                    "body": {
+                        "${1:key}": "${2:value}"
+                    }
                 }
+            ],
+            "examples": [
+                {}
             ]
         }
     },
