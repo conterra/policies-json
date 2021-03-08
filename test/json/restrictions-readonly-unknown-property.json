@@ -1,0 +1,9 @@
+{
+    "$schema": "../../schema/policies.schema.json",
+    "restrictions": {
+        "readonly-restriction": {
+            "type": "readonly",
+            "notknown": "leads-to-error"
+        }
+    }
+}

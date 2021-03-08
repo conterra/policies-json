@@ -65,6 +65,12 @@ describe("policies.schema.json", function () {
     it("should not accept a feature restriction with missing required property", function () {
         assert.isFalse(validate(require("./json/restrictions-feature-missing-required.json")));
     });
+    it("should accept a readonly restriction", function() {
+        assert.isTrue(validate(require("./json/restrictions-readonly.json")));
+    });
+    it("should not accept a readonly restriction with unknown property", function() {
+        assert.isFalse(validate(require("./json/restrictions-readonly-unknown-property.json")));
+    });
     it("should accept a simple policy with layer and role", function () {
         assert.isTrue(validate(require("./json/policies.json")));
     });

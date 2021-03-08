@@ -110,6 +110,9 @@
                 },
                 {
                     "$ref": "#/definitions/feature-restriction-type"
+                },
+                {
+                    "$ref": "#/definitions/readonly-restriction-type"
                 }
             ]
         },
@@ -201,6 +204,20 @@
                     "examples": [
                         "country = 'Germany'"
                     ]
+                }
+            }
+        },
+        "readonly-restriction-type": {
+            "type": "object",
+            "description": "A restriction forbidding write operations on features.",
+            "additionalProperties": false,
+            "required": [
+                "type"
+            ],
+            "properties": {
+                "type": {
+                    "type": "string",
+                    "const": "readonly"
                 }
             }
         },
