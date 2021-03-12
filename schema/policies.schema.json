@@ -321,6 +321,15 @@
             "required": [
                 "type"
             ],
+            "defaultSnippets": [
+                {
+                    "label": "Readonly restriction...",
+                    "description": "Adds a new readonly restriction forbidding write operations on features.",
+                    "body": {
+                        "type": "readonly"
+                    }
+                }
+            ],
             "properties": {
                 "type": {
                     "type": "string",
