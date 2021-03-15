@@ -316,7 +316,7 @@
         },
         "readonly-restriction-type": {
             "type": "object",
-            "description": "A restriction forbidding write operations on features.",
+            "description": "A restriction denying 'edit' operations on feature layers.",
             "additionalProperties": false,
             "required": [
                 "type"
@@ -324,7 +324,7 @@
             "defaultSnippets": [
                 {
                     "label": "Readonly restriction...",
-                    "description": "Adds a new readonly restriction forbidding write operations on features.",
+                    "description": "Adds a new readonly restriction denying 'edit' operations on feature layers.",
                     "body": {
                         "type": "readonly"
                     }
