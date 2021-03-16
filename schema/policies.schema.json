@@ -1,6 +1,6 @@
 {
     "$schema": "http://json-schema.org/schema#",
-    "$id": "https://raw.githubusercontent.com/conterra/policies-json/1.0.0/schema/policies.schema.json",
+    "$id": "https://raw.githubusercontent.com/conterra/policies-json/dev/schema/policies.schema.json",
     "definitions": {
         "id-name": {
             "type": "string",
