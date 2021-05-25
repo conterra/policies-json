@@ -262,20 +262,29 @@
                         {
                             "type": "string",
                             "enum": [
-                                "intersect",
-                                "within"
+                                "intersect"
                             ],
                             "markdownEnumDescriptions": [
-                                "Restrict access to features that are inside or intersect the allowed area.",
-                                "Restrict access to features that are *completely* inside the allowed area."
+                                "Restrict access to features that are inside or intersect the allowed area."
+                            ]
+                        },
+                        {
+                            "type": "string",
+                            "enum": [
+                                "within"
+                            ],
+                            "deprecationMessage": "This value is deprecated without replacement. Use 'intersect' with different behavior instead.",
+                            "doNotSuggest": true,
+                            "markdownEnumDescriptions": [
+                                "This value is deprecated without replacement. Use `intersect` with different behavior instead."
                             ]
                         },
                         {
                             "$ref": "#/definitions/property-replacement-value"
                         }
                     ],
-                    "description": "One of 'intersect' or 'within'. Defaults to 'intersect'.",
-                    "markdownDescription": "One of `intersect` or `within`. Defaults to `intersect`."
+                    "description": "Spatial operation for restriction area. Should be set to `intersect`.",
+                    "markdownDescription": "Spatial operation for restriction area. Should be set to `intersect`."
                 }
             }
         },
