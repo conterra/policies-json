@@ -274,7 +274,6 @@
                                 "within"
                             ],
                             "deprecationMessage": "This value is deprecated without replacement. Use 'intersect' with different behavior instead.",
-                            "doNotSuggest": true,
                             "markdownEnumDescriptions": [
                                 "This value is deprecated without replacement. Use `intersect` with different behavior instead."
                             ]
@@ -283,6 +282,7 @@
                             "$ref": "#/definitions/property-replacement-value"
                         }
                     ],
+                    "doNotSuggest": true,
                     "description": "Spatial operation for restriction area. Should be set to `intersect`.",
                     "markdownDescription": "Spatial operation for restriction area. Should be set to `intersect`."
                 }
