@@ -113,7 +113,6 @@
                             "Allow access to *any* layer."
                         ]
                     }
-
                 ]
             },
             "minItems": 1,
@@ -155,7 +154,9 @@
             "defaultSnippets": [
                 {
                     "body": {
-                        "layers": ["$1"],
+                        "layers": [
+                            "$1"
+                        ],
                         "roles": []
                     }
                 }
@@ -382,6 +383,54 @@
             "examples": [
                 {}
             ]
+        },
+        "user-info-service-type": {
+            "type": "object",
+            "description": "A service used to fetch additional user information. This information allows the definition of user-specific permissions.",
+            "additionalProperties": false,
+            "required": [
+                "url"
+            ],
+            "defaultSnippets": [
+                {
+                    "label": "User info service...",
+                    "description": "Adds properties of a user info service.",
+                    "body": {
+                        "enabled": true,
+                        "url": "https://localhost:3333",
+                        "httpsTrustAny": false,
+                        "bearerToken": "xyz"
+                    }
+                }
+            ],            
+            "properties": {
+                "enabled": {
+                    "type": "boolean",
+                    "description": "True if the service is enabled, otherwise false."
+                },
+                "url": {
+                    "$ref": "#/definitions/non-empty-string",
+                    "description": "URL that points to the user info service."
+                },
+                "httpsTrustAny": {
+                    "type": "boolean",
+                    "description": "Property that specifies whether to trust insecure https connections."
+                },
+                "bearerToken": {
+                    "type": "string",
+                    "description": "Security token used to access the user information service."
+                }
+            }
+        },    
+        "extensions-type": {
+            "type": "object",
+            "description": "Extensions by name.",
+            "additionalProperties": false,
+            "properties": {
+                "userInfoService": {
+                    "$ref": "#/definitions/user-info-service-type"
+                }
+            }
         }
     },
     "type": "object",
@@ -402,6 +451,9 @@
             "items": {
                 "$ref": "#/definitions/policy-type"
             }
+        },
+        "extensions": {
+            "$ref": "#/definitions/extensions-type"
         }
     }
 }
