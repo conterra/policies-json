@@ -398,7 +398,7 @@
                     "body": {
                         "enabled": true,
                         "url": "https://localhost:3333",
-                        "httpsTrustAny": false,
+                        "insecure": false,
                         "bearerToken": "xyz"
                     }
                 }
@@ -407,14 +407,14 @@
                 "enabled": {
                     "type": "boolean",
                     "description": "True if the service is enabled, otherwise false."
-                },
+                },  
                 "url": {
                     "$ref": "#/definitions/non-empty-string",
                     "description": "URL that points to the user info service."
                 },
-                "httpsTrustAny": {
+                "insecure": {
                     "type": "boolean",
-                    "description": "Property that specifies whether to trust insecure https connections."
+                    "description": "If set to true, all TLS certs are accepted when making HTTPS connections."
                 },
                 "bearerToken": {
                     "type": "string",
