@@ -408,7 +408,7 @@
             "properties": {
                 "enabled": {
                     "type": "boolean",
-                    "description": "True if the service is enabled, otherwise false."
+                    "description": "Enables (true) or disables (false) fetching of user attributes via the service."
                 },
                 "url": {
                     "$ref": "#/definitions/non-empty-string",
@@ -416,7 +416,7 @@
                 },
                 "insecure": {
                     "type": "boolean",
-                    "description": "If set to true, all TLS certs are accepted when making HTTPS connections."
+                    "description": "Allows (true) or disallows (false) connections to insecure HTTPS endpoints."
                 },
                 "headers": {
                     "type": "object",
