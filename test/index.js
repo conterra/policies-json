@@ -110,4 +110,10 @@ describe("policies.schema.json", function () {
     it("should accept a policy using ${key} expressions", function () {
         assert.isTrue(validate(require("./json/policies-property-replacement-allowed.json")));
     });
+    it("should accept userinfoservice extension", function () {
+        assert.isTrue(validate(require("./json/extensions-userinfoservice.json")));
+    });
+    it("should not accept userinfoservice extension with not allowed header name", function () {
+        assert.isFalse(validate(require("./json/extensions-userinfoservice-wrong-headername.json")));
+    });
 });

@@ -1,0 +1,13 @@
+{
+    "$schema": "../../schema/policies.schema.json",
+    "extensions": {
+        "userInfoService": {
+            "enabled": true,
+            "url": "https://localhost:3333",
+            "insecure": false,
+            "headers": {
+                "Authorization": "Bearer 123"
+            }
+        }
+    }
+}

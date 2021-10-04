@@ -399,15 +399,17 @@
                         "enabled": true,
                         "url": "https://localhost:3333",
                         "insecure": false,
-                        "bearerToken": "xyz"
+                        "headers": {
+                            "Authorization": "Bearer 123"
+                        }
                     }
                 }
-            ],            
+            ],
             "properties": {
                 "enabled": {
                     "type": "boolean",
                     "description": "True if the service is enabled, otherwise false."
-                },  
+                },
                 "url": {
                     "$ref": "#/definitions/non-empty-string",
                     "description": "URL that points to the user info service."
@@ -416,12 +418,27 @@
                     "type": "boolean",
                     "description": "If set to true, all TLS certs are accepted when making HTTPS connections."
                 },
-                "bearerToken": {
-                    "type": "string",
-                    "description": "Security token used to access the user information service."
+                "headers": {
+                    "type": "object",
+                    "description": "Enumeration of HTTP headers.",
+                    "additionalProperties": {
+                        "type": "string",
+                        "description": "A HTTP header."
+                    },
+                    "propertyNames": {
+                        "pattern": "^[A-Za-z0-9_-]+$"
+                    },
+                    "defaultSnippets": [
+                        {
+                            "label": "Headers...",
+                            "body": {
+                                "Authorization": "Bearer 123"
+                            }
+                        }
+                    ]
                 }
             }
-        },    
+        },
         "extensions-type": {
             "type": "object",
             "description": "Extensions by name.",
