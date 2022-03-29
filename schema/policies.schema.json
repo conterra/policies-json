@@ -150,6 +150,7 @@
         },
         "restriction-type": {
             "type": "object",
+            "discriminator": { "propertyName": "type" },
             "oneOf": [
                 {
                     "$ref": "#/definitions/spatial-restriction-type"
