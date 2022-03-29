@@ -5,13 +5,13 @@ The policies schema defines the [JSON schema](https://json-schema.org/) used for
 Referencing the [policies schema definition file](./schema/policies.schema.json) in policies JSON files serves two purposes:
 
 1. **Validation** of policies JSON regarding
-   * structure
-   * types of values
-   * allowed patterns for values
+    - structure
+    - types of values
+    - allowed patterns for values
 2. Provide **editing support**, eg. in Visual Studio Code, like
-   * code suggest
-   * type documentation
-   * type examples
+    - code suggest
+    - type documentation
+    - type examples
 
 An instance of the schema may look like this:
 

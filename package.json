@@ -3,9 +3,6 @@
     "version": "1.2.0",
     "description": "json schema for security.manager policies",
     "scripts": {
-        "docs-help": "jsonschema2md --help",
-        "docs-clean": "rmdir /S/Q docs && mkdir docs",
-        "docs": "jsonschema2md -n --header false --schema-out '-' --out docs --input ./schema",
         "test": "mocha --reporter spec"
     },
     "repository": {
@@ -22,9 +19,8 @@
     },
     "homepage": "https://github.com/conterra/policies-schema#readme",
     "devDependencies": {
-        "@adobe/jsonschema2md": "^4.2.0",
-        "ajv": "^6.12.4",
-        "chai": "^4.2.0",
-        "mocha": "^8.1.3"
+        "ajv": "^8.11.0",
+        "chai": "^4.3.6",
+        "mocha": "^9.2.2"
     }
 }
