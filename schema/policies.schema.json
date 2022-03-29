@@ -55,10 +55,7 @@
         },
         "known-roles-type": {
             "type": "string",
-            "enum": [
-                "enhancedSecurity_any",
-                "enhancedSecurity_authenticated"
-            ],
+            "enum": ["enhancedSecurity_any", "enhancedSecurity_authenticated"],
             "markdownEnumDescriptions": [
                 "Any user, even users not signed in.",
                 "Any user signed in to the portal organization."
@@ -99,19 +96,12 @@
                                 "body": "${1:layer_id}"
                             }
                         ],
-                        "examples": [
-                            "0",
-                            "0-2"
-                        ]
+                        "examples": ["0", "0-2"]
                     },
                     {
                         "type": "string",
-                        "enum": [
-                            "*"
-                        ],
-                        "markdownEnumDescriptions": [
-                            "Allow access to *any* layer."
-                        ]
+                        "enum": ["*"],
+                        "markdownEnumDescriptions": ["Allow access to *any* layer."]
                     }
                 ]
             },
@@ -136,10 +126,7 @@
         "policy-type": {
             "type": "object",
             "additionalProperties": false,
-            "required": [
-                "layers",
-                "roles"
-            ],
+            "required": ["layers", "roles"],
             "properties": {
                 "layers": {
                     "$ref": "#/definitions/policy-layers-type"
@@ -154,16 +141,12 @@
             "defaultSnippets": [
                 {
                     "body": {
-                        "layers": [
-                            "$1"
-                        ],
+                        "layers": ["$1"],
                         "roles": []
                     }
                 }
             ],
-            "examples": [
-                {}
-            ]
+            "examples": [{}]
         },
         "restriction-type": {
             "type": "object",
@@ -186,19 +169,14 @@
             "type": "object",
             "description": "A field restriction limiting access to available fields.",
             "additionalProperties": false,
-            "required": [
-                "type",
-                "hiddenfields"
-            ],
+            "required": ["type", "hiddenfields"],
             "defaultSnippets": [
                 {
                     "label": "Field restriction...",
                     "description": "Adds a new field restriction limiting access to the fields of a layer.",
                     "body": {
                         "type": "field",
-                        "hiddenfields": [
-                            "${1:field_name}"
-                        ]
+                        "hiddenfields": ["${1:field_name}"]
                     }
                 }
             ],
@@ -217,11 +195,7 @@
         "spatial-restriction-type": {
             "type": "object",
             "description": "A spatial restriction limiting access to a certain area.",
-            "required": [
-                "type",
-                "featuretypeurl",
-                "featurequery"
-            ],
+            "required": ["type", "featuretypeurl", "featurequery"],
             "defaultSnippets": [
                 {
                     "label": "Spatial restriction...",
@@ -250,11 +224,7 @@
                 },
                 "featurequery": {
                     "$ref": "#/definitions/non-empty-string",
-                    "examples": [
-                        "state = 'California'",
-                        "state like 'C%'",
-                        "state in ['California', 'Nevada']"
-                    ],
+                    "examples": ["state = 'California'", "state like 'C%'", "state in ['California', 'Nevada']"],
                     "description": "A definition query that selects the features of a feature layer defined by 'featuretypeurl'. These features define the allowed area.",
                     "markdownDescription": "A definition query that selects the features of a feature layer defined by `featuretypeurl`. These features define the allowed area."
                 },
@@ -262,21 +232,9 @@
                     "oneOf": [
                         {
                             "type": "string",
-                            "enum": [
-                                "intersect"
-                            ],
+                            "enum": ["intersect"],
                             "markdownEnumDescriptions": [
                                 "Restrict access to features that are inside or intersect the allowed area."
-                            ]
-                        },
-                        {
-                            "type": "string",
-                            "enum": [
-                                "within"
-                            ],
-                            "deprecationMessage": "This value is deprecated without replacement. Use 'intersect' with different behavior instead.",
-                            "markdownEnumDescriptions": [
-                                "This value is deprecated without replacement. Use `intersect` with different behavior instead."
                             ]
                         },
                         {
@@ -293,10 +251,7 @@
             "type": "object",
             "description": "A feature restriction limiting access to features matching a certain query.",
             "additionalProperties": false,
-            "required": [
-                "type",
-                "query"
-            ],
+            "required": ["type", "query"],
             "defaultSnippets": [
                 {
                     "label": "Feature restriction...",
@@ -316,11 +271,7 @@
                 "query": {
                     "$ref": "#/definitions/non-empty-string",
                     "description": "A definition expression (WHERE clause) that selects the allowed features.",
-                    "examples": [
-                        "country = 'Germany'",
-                        "country like 'G%'",
-                        "country in ['Germany', 'France']"
-                    ]
+                    "examples": ["country = 'Germany'", "country like 'G%'", "country in ['Germany', 'France']"]
                 }
             }
         },
@@ -328,9 +279,7 @@
             "type": "object",
             "description": "A restriction denying 'edit' operations on feature layers.",
             "additionalProperties": false,
-            "required": [
-                "type"
-            ],
+            "required": ["type"],
             "defaultSnippets": [
                 {
                     "label": "Readonly restriction...",
@@ -356,9 +305,7 @@
             "additionalProperties": {
                 "$ref": "#/definitions/restriction-type"
             },
-            "examples": [
-                {}
-            ]
+            "examples": [{}]
         },
         "properties-type": {
             "type": "object",
@@ -380,17 +327,13 @@
                     }
                 }
             ],
-            "examples": [
-                {}
-            ]
+            "examples": [{}]
         },
         "user-info-service-type": {
             "type": "object",
             "description": "A service used to fetch additional user information. This information allows the definition of user-specific permissions.",
             "additionalProperties": false,
-            "required": [
-                "url"
-            ],
+            "required": ["url"],
             "defaultSnippets": [
                 {
                     "label": "User info service...",

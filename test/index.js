@@ -35,8 +35,8 @@ describe("policies.schema.json", function () {
     it("should accept a spatial restriction", function () {
         assert.isTrue(validate(require("./json/restrictions-spatial.json")));
     });
-    it("should still accept a spatial restriction with deprecated 'within' operation", function () {
-        assert.isTrue(validate(require("./json/restrictions-spatial-within.json")));
+    it("should not accept unsupported operation field values in spatial restrictions", function () {
+        assert.isFalse(validate(require("./json/restrictions-spatial-within.json")));
     });
     it("should accept a spatial restriction without operation field", function () {
         assert.isTrue(validate(require("./json/restrictions-spatial-operation-optional.json")));
