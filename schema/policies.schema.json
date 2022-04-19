@@ -164,7 +164,10 @@
                 {
                     "$ref": "#/definitions/readonly-restriction-type"
                 }
-            ]
+            ],
+            "errorMessage": {
+                "discriminator": "\"type\" must be one of \"spatial\", \"field\", \"feature\" or \"readonly\""
+            }
         },
         "field-restriction-type": {
             "type": "object",
