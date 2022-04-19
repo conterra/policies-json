@@ -17,7 +17,7 @@ An instance of the schema may look like this:
 
 ```json
 {
-    "$schema": "https://raw.githubusercontent.com/conterra/policies-json/1.2.0/schema/policies.schema.json",
+    "$schema": "https://raw.githubusercontent.com/conterra/policies-json/1.3.0/schema/policies.schema.json",
     "policies": [
         {
             "layers": ["0", "1", "2"],
@@ -32,8 +32,7 @@ An instance of the schema may look like this:
         "area51": {
             "type": "spatial",
             "featuretypeurl": "https://gis.example.com:6443/arcgis/rest/services/RestricionAreas/FeatureServer/0",
-            "featurequery": "area_name = '51'",
-            "operation": "intersect"
+            "featurequery": "area_name = '51'"
         },
         "secret_data": {
             "type": "field",
