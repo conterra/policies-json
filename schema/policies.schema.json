@@ -224,7 +224,14 @@
                         }
                     }
                 }
-            ]
+            ],
+            "properties": {
+                "type": {
+                    "type": "string",
+                    "const": "field",
+                    "suggestSortText": "a"
+                }
+            }
         },
         "spatial-restriction-type": {
             "type": "object",
