@@ -53,6 +53,12 @@ describe("policies.schema.json", function () {
     it("should accept a field restriction", function () {
         assert.isTrue(validate(require("./json/restrictions-field.json")));
     });
+    it("should accept a field restriction using 'allowedFields'", function () {
+        assert.isTrue(validate(require("./json/restrictions-field-allowed.json")));
+    });
+    it("should accept a field restriction that mixes both forms", function () {
+        assert.isFalse(validate(require("./json/restrictions-field-allowed-and-hidden.json")));
+    });
     it("should not accept a field restriction with unknown property", function () {
         assert.isFalse(validate(require("./json/restrictions-field-unknown-property.json")));
     });

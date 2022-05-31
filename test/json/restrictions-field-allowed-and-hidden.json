@@ -3,6 +3,7 @@
     "restrictions": {
         "hide-title": {
             "type": "field",
+            "allowedfields": ["title"],
             "hiddenfields": ["title"]
         }
     }

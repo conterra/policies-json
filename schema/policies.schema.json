@@ -172,29 +172,59 @@
         "field-restriction-type": {
             "type": "object",
             "description": "A field restriction limiting access to available fields.",
-            "additionalProperties": false,
-            "required": ["type", "hiddenfields"],
+            "required": ["type"],
             "defaultSnippets": [
                 {
                     "label": "Field restriction...",
-                    "description": "Adds a new field restriction limiting access to the fields of a layer.",
+                    "description": "Adds a new field restriction hiding specified fields of a layer.",
                     "body": {
                         "type": "field",
                         "hiddenfields": ["${1:field_name}"]
                     }
+                },
+                {
+                    "label": "Field restriction...",
+                    "description": "Adds a new field restriction showing specified fields of a layer.",
+                    "body": {
+                        "type": "field",
+                        "allowedfields": ["${1:field_name}"]
+                    }
                 }
             ],
-            "properties": {
-                "type": {
-                    "type": "string",
-                    "const": "field",
-                    "suggestSortText": "a"
+            "oneOf": [
+                {
+                    "type": "object",
+                    "required": ["type", "hiddenfields"],
+                    "additionalProperties": false,
+                    "properties": {
+                        "type": {
+                            "type": "string",
+                            "const": "field",
+                            "suggestSortText": "a"
+                        },
+                        "hiddenfields": {
+                            "$ref": "#/definitions/unique-non-empty-string-array",
+                            "description": "List of field names as defined for a map service layer or table."
+                        }
+                    }
                 },
-                "hiddenfields": {
-                    "$ref": "#/definitions/unique-non-empty-string-array",
-                    "description": "List of field names as defined for a map service layer or table."
+                {
+                    "type": "object",
+                    "required": ["type", "allowedfields"],
+                    "additionalProperties": false,
+                    "properties": {
+                        "type": {
+                            "type": "string",
+                            "const": "field",
+                            "suggestSortText": "a"
+                        },
+                        "allowedfields": {
+                            "$ref": "#/definitions/unique-non-empty-string-array",
+                            "description": "List of field names as defined for a map service layer or table."
+                        }
+                    }
                 }
-            }
+            ]
         },
         "spatial-restriction-type": {
             "type": "object",
