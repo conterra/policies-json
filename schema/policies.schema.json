@@ -219,7 +219,7 @@
                             "suggestSortText": "a"
                         },
                         "allowedfields": {
-                            "$ref": "#/definitions/unique-non-empty-string-array",
+                            "$ref": "#/definitions/unique-string-array",
                             "description": "List of field names as defined for a map service layer or table."
                         }
                     }
