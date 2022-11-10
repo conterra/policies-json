@@ -148,6 +148,12 @@
             ],
             "examples": [{}]
         },
+        "policies-type": {
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/policy-type"
+            }
+        },
         "fallback-policy-type": {
             "type": "object",
             "description": "A policy chosen by security.manager if no other policies match a request.",
@@ -172,7 +178,9 @@
         },
         "restriction-type": {
             "type": "object",
-            "discriminator": { "propertyName": "type" },
+            "discriminator": {
+                "propertyName": "type"
+            },
             "oneOf": [
                 {
                     "$ref": "#/definitions/spatial-restriction-type"
@@ -457,6 +465,7 @@
         }
     },
     "type": "object",
+    "title": "Policy JSON",
     "required": [],
     "additionalProperties": false,
     "properties": {
@@ -473,10 +482,7 @@
             "$ref": "#/definitions/fallback-policy-type"
         },
         "policies": {
-            "type": "array",
-            "items": {
-                "$ref": "#/definitions/policy-type"
-            }
+            "$ref": "#/definitions/policies-type"
         },
         "extensions": {
             "$ref": "#/definitions/extensions-type"
