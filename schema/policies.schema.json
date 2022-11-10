@@ -203,6 +203,7 @@
             "type": "object",
             "description": "A field restriction limiting access to available fields.",
             "required": ["type"],
+            "additionalProperties": false,
             "defaultSnippets": [
                 {
                     "label": "Field restriction...",
@@ -224,6 +225,7 @@
             "oneOf": [
                 {
                     "type": "object",
+                    "title": "Hidden Fields Restriction",
                     "required": ["type", "hiddenfields"],
                     "additionalProperties": false,
                     "properties": {
@@ -240,6 +242,7 @@
                 },
                 {
                     "type": "object",
+                    "title": "Allowed Fields Restriction",
                     "required": ["type", "allowedfields"],
                     "additionalProperties": false,
                     "properties": {
