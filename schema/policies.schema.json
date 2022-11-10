@@ -465,7 +465,7 @@
         }
     },
     "type": "object",
-    "title": "Policy JSON",
+    "title": "Policies Schema",
     "required": [],
     "additionalProperties": false,
     "properties": {
