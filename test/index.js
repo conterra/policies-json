@@ -74,10 +74,10 @@ describe("policies.schema.json", function () {
     it("should not accept a feature restriction with missing required property", function () {
         assert.isFalse(validate(require("./json/restrictions-feature-missing-required.json")));
     });
-    it("should accept a readonly restriction", function() {
+    it("should accept a readonly restriction", function () {
         assert.isTrue(validate(require("./json/restrictions-readonly.json")));
     });
-    it("should not accept a readonly restriction with unknown property", function() {
+    it("should not accept a readonly restriction with unknown property", function () {
         assert.isFalse(validate(require("./json/restrictions-readonly-unknown-property.json")));
     });
     it("should accept a simple policy with layer and role", function () {
@@ -115,6 +115,12 @@ describe("policies.schema.json", function () {
     });
     it("should accept a policy using ${key} expressions", function () {
         assert.isTrue(validate(require("./json/policies-property-replacement-allowed.json")));
+    });
+    it("should accept a fallback policy", function () {
+        assert.isTrue(validate(require("./json/fallback-policy.json")));
+    });
+    it("should not accept a fallback policy with roles key", function () {
+        assert.isFalse(validate(require("./json/fallback-policy-with-roles.json")));
     });
     it("should accept userinfoservice extension", function () {
         assert.isTrue(validate(require("./json/extensions-userinfoservice.json")));

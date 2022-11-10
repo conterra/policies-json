@@ -148,6 +148,28 @@
             ],
             "examples": [{}]
         },
+        "fallback-policy-type": {
+            "type": "object",
+            "description": "A policy chosen by security.manager if no other policies match a request.",
+            "additionalProperties": false,
+            "required": ["layers"],
+            "properties": {
+                "layers": {
+                    "$ref": "#/definitions/policy-layers-type"
+                },
+                "restrictions": {
+                    "$ref": "#/definitions/policy-restrictions-type"
+                }
+            },
+            "defaultSnippets": [
+                {
+                    "body": {
+                        "layers": ["$1"]
+                    }
+                }
+            ],
+            "examples": [{}]
+        },
         "restriction-type": {
             "type": "object",
             "discriminator": { "propertyName": "type" },
@@ -446,6 +468,9 @@
         },
         "restrictions": {
             "$ref": "#/definitions/restriction-definitions-type"
+        },
+        "fallbackPolicy": {
+            "$ref": "#/definitions/fallback-policy-type"
         },
         "policies": {
             "type": "array",
