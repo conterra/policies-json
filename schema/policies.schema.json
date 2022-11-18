@@ -203,7 +203,6 @@
             "type": "object",
             "description": "A field restriction limiting access to available fields.",
             "required": ["type"],
-            "additionalProperties": false,
             "defaultSnippets": [
                 {
                     "label": "Field restriction...",
