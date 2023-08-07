@@ -501,15 +501,5 @@
         "extensions": {
             "$ref": "#/definitions/extensions-type"
         }
-    },
-    "allOf": [
-        {
-            "not": {
-                "required" : ["fallbackPolicy", "fallbackPolicies"]
-            }
-        },
-        {
-            "required": []
-        }
-    ]
+    }
 }
