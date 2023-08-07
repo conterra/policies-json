@@ -122,6 +122,12 @@ describe("policies.schema.json", function () {
     it("should not accept a fallback policy with roles key", function () {
         assert.isFalse(validate(require("./json/fallback-policy-with-roles.json")));
     });
+    it("should accept fallback policies", function () {
+        assert.isTrue(validate(require("./json/fallback-policies.json")));
+    });    
+    it("should not accept fallback policies and a single fallback policy", function () {
+        assert.isFalse(validate(require("./json/fallback-policy-and-policies.json")));
+    });
     it("should accept userinfoservice extension", function () {
         assert.isTrue(validate(require("./json/extensions-userinfoservice.json")));
     });

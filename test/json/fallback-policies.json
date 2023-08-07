@@ -1,0 +1,14 @@
+{
+  "$schema": "../../schema/policies.schema.json",
+  "extensions": {},
+  "fallbackPolicies": [
+    {
+      "layers": ["0-1"],
+      "restrictions": ["foo"]
+    },
+    {
+      "layers": ["2"],
+      "restrictions": ["bar"]
+    }
+  ]
+}

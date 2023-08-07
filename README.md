@@ -17,7 +17,7 @@ An instance of the schema may look like this:
 
 ```json
 {
-    "$schema": "https://raw.githubusercontent.com/conterra/policies-json/1.5.0/schema/policies.schema.json",
+    "$schema": "https://raw.githubusercontent.com/conterra/policies-json/1.6.0/schema/policies.schema.json",
     "policies": [
         {
             "layers": ["0", "1", "2"],

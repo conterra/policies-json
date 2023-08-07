@@ -1,6 +1,6 @@
 {
     "$schema": "http://json-schema.org/schema#",
-    "$id": "https://raw.githubusercontent.com/conterra/policies-json/1.5.0/schema/policies.schema.json",
+    "$id": "https://raw.githubusercontent.com/conterra/policies-json/1.6.0/schema/policies.schema.json",
     "definitions": {
         "id-name": {
             "type": "string",
@@ -175,6 +175,13 @@
                 }
             ],
             "examples": [{}]
+        },
+        "fallback-policies-type": {
+            "type": "array",
+            "description": "Policies chosen by security.manager if no other policies match a request.",
+            "items": {
+                "$ref": "#/definitions/fallback-policy-type"
+            }
         },
         "restriction-type": {
             "type": "object",
@@ -481,13 +488,27 @@
             "$ref": "#/definitions/restriction-definitions-type"
         },
         "fallbackPolicy": {
-            "$ref": "#/definitions/fallback-policy-type"
+            "$ref": "#/definitions/fallback-policy-type",
+            "deprecated": true
         },
+        "fallbackPolicies": {
+            "$ref": "#/definitions/fallback-policies-type"
+        },        
         "policies": {
             "$ref": "#/definitions/policies-type"
         },
         "extensions": {
             "$ref": "#/definitions/extensions-type"
         }
-    }
+    },
+    "allOf": [
+        {
+            "not": {
+                "required" : ["fallbackPolicy", "fallbackPolicies"]
+            }
+        },
+        {
+            "required": []
+        }
+    ]
 }
