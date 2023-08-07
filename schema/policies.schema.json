@@ -501,5 +501,16 @@
         "extensions": {
             "$ref": "#/definitions/extensions-type"
         }
-    }
+    },
+    "allOf": [
+        {
+            "not": {
+                "required" : ["fallbackPolicy", "fallbackPolicies"]
+            },
+            "errorMessage": "Only property 'fallbackPolicy' or 'fallbackPolicies' is allowed."
+        },
+        {
+            "required": []
+        }
+    ]
 }

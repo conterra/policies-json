@@ -126,8 +126,7 @@ describe("policies.schema.json", function () {
         assert.isTrue(validate(require("./json/fallback-policies.json")));
     });
     it("should accept fallback policies and a single fallback policy", function () {
-        //NOTE: this potential error is handled as custom parsing validation, to provide a better error message
-        assert.isTrue(validate(require("./json/fallback-policy-and-policies.json")));
+        assert.isFalse(validate(require("./json/fallback-policy-and-policies.json")));
     });
     it("should accept userinfoservice extension", function () {
         assert.isTrue(validate(require("./json/extensions-userinfoservice.json")));
