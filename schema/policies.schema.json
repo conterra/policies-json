@@ -489,11 +489,12 @@
         },
         "fallbackPolicy": {
             "$ref": "#/definitions/fallback-policy-type",
-            "deprecated": true
+            "deprecated": true,
+            "deprecationMessage": "This property is deprecated, please use 'fallbackPolicies' instead."
         },
         "fallbackPolicies": {
             "$ref": "#/definitions/fallback-policies-type"
-        },        
+        },
         "policies": {
             "$ref": "#/definitions/policies-type"
         },
