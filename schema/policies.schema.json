@@ -1,6 +1,6 @@
 {
     "$schema": "http://json-schema.org/schema#",
-    "$id": "https://raw.githubusercontent.com/conterra/policies-json/1.6.0/schema/policies.schema.json",
+    "$id": "https://raw.githubusercontent.com/conterra/policies-json/1.7.0/schema/policies.schema.json",
     "definitions": {
         "id-name": {
             "type": "string",
@@ -324,6 +324,23 @@
                     "doNotSuggest": true,
                     "description": "Spatial operation for restriction area. Should be set to `intersect`.",
                     "markdownDescription": "Spatial operation for restriction area. Should be set to `intersect`."
+                },
+                "filtermode": {
+                    "oneOf": [
+                        {
+                            "type": "string",
+                            "enum": ["soi-clipping", "arcgis-clipping", "arcgis-spatial-filter"],
+                            "markdownEnumDescriptions": [
+                                "Specifies the way features are filtered with respect to the allowed geometry."
+                            ]
+                        },
+                        {
+                            "$ref": "#/definitions/property-replacement-value"
+                        }
+                    ],
+                    "doNotSuggest": true,
+                    "description": "Specifies the way features are filtered with respect to the allowed geometry. Default is`soi-clipping`.",
+                    "markdownDescription": "Specifies the way features are filtered with respect to the allowed geometry. Default is`soi-clipping`."
                 }
             }
         },

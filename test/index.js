@@ -50,6 +50,9 @@ describe("policies.schema.json", function () {
     it("should not accept a spatial restriction with missing required property", function () {
         assert.isFalse(validate(require("./json/restrictions-spatial-missing-required.json")));
     });
+    it("should accept a spatial restriction with filter mode property", function () {
+        assert.isTrue(validate(require("./json/restrictions-spatial-filter-mode.json")));
+    });
     it("should accept a field restriction", function () {
         assert.isTrue(validate(require("./json/restrictions-field.json")));
     });
