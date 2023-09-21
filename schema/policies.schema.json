@@ -341,7 +341,7 @@
                         }
                     ],
                     "description": "Defines how spatial restrictions are applied to map image requests. Default is`soi-clipping`.",
-                    "markdownDescription": "Specifies the way features are filtered with respect to the allowed geometry. Default is`soi-clipping`."
+                    "markdownDescription": "Defines how spatial restrictions are applied to map image requests. Default is`soi-clipping`."
                 }
             }
         },
