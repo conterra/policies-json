@@ -325,21 +325,22 @@
                     "description": "Spatial operation for restriction area. Should be set to `intersect`.",
                     "markdownDescription": "Spatial operation for restriction area. Should be set to `intersect`."
                 },
-                "filtermode": {
+                "imageoperation": {
                     "oneOf": [
                         {
                             "type": "string",
-                            "enum": ["soi-clipping", "arcgis-clipping", "arcgis-spatial-filter"],
+                            "enum": ["soi-clipping", "arcgis-clipping", "arcgis-spatialfilter"],
                             "markdownEnumDescriptions": [
-                                "Specifies the way features are filtered with respect to the allowed geometry."
+                                "security.manager masks out all map image data that is not covered by the restriction geometry.",
+                                "ArcGIS Server masks out all map image data that is not covered by the restriction geometry.",
+                                "security.manager lets ArcGIS Server generate a map that only contains features that intersect the restriction geometry."
                             ]
                         },
                         {
                             "$ref": "#/definitions/property-replacement-value"
                         }
                     ],
-                    "doNotSuggest": true,
-                    "description": "Specifies the way features are filtered with respect to the allowed geometry. Default is`soi-clipping`.",
+                    "description": "Defines how spatial restrictions are applied to map image requests. Default is`soi-clipping`.",
                     "markdownDescription": "Specifies the way features are filtered with respect to the allowed geometry. Default is`soi-clipping`."
                 }
             }

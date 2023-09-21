@@ -5,7 +5,7 @@
             "type": "spatial",
             "featuretypeurl": "https://myserver:6443/arcgis/rest/services/folder1/service1/FeatureServer/0",
             "featurequery": "state = 'California'",
-            "filtermode": "arcgis-clipping"
+            "imageoperation": "arcgis-clipping"
         }
     }
 }
