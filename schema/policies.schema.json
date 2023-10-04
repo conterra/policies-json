@@ -1,5 +1,5 @@
 {
-    "$schema": "http://json-schema.org/schema#",
+    "$schema": "http://json-schema.org/draft-07/schema",
     "$id": "https://raw.githubusercontent.com/conterra/policies-json/1.7.0/schema/policies.schema.json",
     "definitions": {
         "id-name": {
@@ -184,24 +184,45 @@
             }
         },
         "restriction-type": {
-            "type": "object",
-            "discriminator": {
-                "propertyName": "type"
-            },
-            "oneOf": [
+            "allOf": [
                 {
-                    "$ref": "#/definitions/spatial-restriction-type"
+                    "type": "object",
+                    "properties": {
+                        "type": {
+                            "type": "string",
+                            "enum": ["spatial", "field", "feature", "readonly"],
+                            "description": "Declares the type of the restriction.",
+                            "markdownEnumDescriptions": [
+                                "A spatial restriction.",
+                                "A field restriction.",
+                                "A feature restriction.",
+                                "A readonly restriction."
+                            ]
+                        }
+                    }
                 },
                 {
-                    "$ref": "#/definitions/field-restriction-type"
-                },
-                {
-                    "$ref": "#/definitions/feature-restriction-type"
-                },
-                {
-                    "$ref": "#/definitions/readonly-restriction-type"
+                    "type": "object",
+                    "discriminator": {
+                        "propertyName": "type"
+                    },
+                    "oneOf": [
+                        {
+                            "$ref": "#/definitions/spatial-restriction-type"
+                        },
+                        {
+                            "$ref": "#/definitions/field-restriction-type"
+                        },
+                        {
+                            "$ref": "#/definitions/feature-restriction-type"
+                        },
+                        {
+                            "$ref": "#/definitions/readonly-restriction-type"
+                        }
+                    ]
                 }
             ],
+
             "errorMessage": {
                 "discriminator": "\"type\" must be one of \"spatial\", \"field\", \"feature\" or \"readonly\""
             }
@@ -523,7 +544,7 @@
     "allOf": [
         {
             "not": {
-                "required" : ["fallbackPolicy", "fallbackPolicies"]
+                "required": ["fallbackPolicy", "fallbackPolicies"]
             },
             "errorMessage": "Only property 'fallbackPolicy' or 'fallbackPolicies' is allowed."
         },

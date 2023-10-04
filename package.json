@@ -19,8 +19,8 @@
     },
     "homepage": "https://github.com/conterra/policies-schema#readme",
     "devDependencies": {
-        "ajv": "^8.11.0",
-        "chai": "^4.3.6",
-        "mocha": "^9.2.2"
+        "ajv": "^8.12.0",
+        "chai": "^4.3.10",
+        "mocha": "^10.2.0"
     }
 }

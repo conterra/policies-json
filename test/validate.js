@@ -2,7 +2,7 @@ const Ajv = require('ajv');
 const schema = require("../schema/policies.schema.json");
 const ajv = new Ajv({
     // for vscode schema extensions
-     strict: false
+    strict: false
 });
 const validate = ajv.compile(schema);
 
