@@ -350,11 +350,10 @@
                     "oneOf": [
                         {
                             "type": "string",
-                            "enum": ["soi-clipping", "arcgis-clipping", "arcgis-spatialfilter"],
+                            "enum": ["soi-clipping", "arcgis-clipping"],
                             "markdownEnumDescriptions": [
                                 "security.manager masks out all map image data that is not covered by the restriction geometry.",
-                                "ArcGIS Server masks out all map image data that is not covered by the restriction geometry.",
-                                "security.manager lets ArcGIS Server generate a map that only contains features that intersect the restriction geometry."
+                                "ArcGIS Server masks out all map image data that is not covered by the restriction geometry."
                             ]
                         },
                         {
