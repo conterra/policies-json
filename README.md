@@ -1,6 +1,6 @@
-# Policies Schema
+# Policies Schema | security.manager NEXT
 
-The policies schema defines the [JSON schema](https://json-schema.org/) used for service access policies in security.manager.
+The policies schema defines the [JSON schema](https://json-schema.org/) used for service access policies in security.manager NEXT.
 
 Referencing the [policies schema definition file](./schema/policies.schema.json) in policies JSON files serves two purposes:
 
