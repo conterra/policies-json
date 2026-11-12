@@ -1,0 +1,11 @@
+{
+    "$schema": "../../schema/policies.schema.json",
+    "fallbackPolicies": [
+        {
+            "layers": [
+                "0"
+            ],
+            "priority": 3
+        }
+    ]
+}

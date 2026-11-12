@@ -201,6 +201,26 @@ describe("policies.schema.json", function () {
     it("should accept a policy with a priority", function () {
         expect(validatePolicy(getJson("./json/policies-priority.json")).valid).toBe(true);
     });
+    it("should not accept a policy with a negative priority", function () {
+        expect(getErrors(validatePolicy(getJson("./json/policies-priority-negative.json")))).toMatchInlineSnapshot(
+            `""priority" property must be >= 0"`
+        );
+    });
+    it("should not accept a policy with a decimal priority", function () {
+        expect(getErrors(validatePolicy(getJson("./json/policies-priority-decimal.json")))).toMatchInlineSnapshot(
+            `""priority" property type must be integer"`
+        );
+    });
+    it("should not accept a policy with a string priority", function () {
+        expect(getErrors(validatePolicy(getJson("./json/policies-priority-string.json")))).toMatchInlineSnapshot(
+            `""priority" property type must be integer"`
+        );
+    });
+    it("should not accept a fallback policy with a priority", function () {
+        expect(getErrors(validatePolicy(getJson("./json/fallback-policies-with-priority.json")))).toMatchInlineSnapshot(
+            `"Property "priority" is not expected to be here"`
+        );
+    });
     it("should accept userinfoservice extension", function () {
         expect(validatePolicy(getJson("./json/extensions-userinfoservice.json")).valid).toBe(true);
     });
