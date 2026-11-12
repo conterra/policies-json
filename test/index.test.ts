@@ -198,9 +198,6 @@ describe("policies.schema.json", function () {
             `"Object must not be valid"`
         );
     });
-    it("should accept a policy with a priority", function () {
-        expect(validatePolicy(getJson("./json/policies-priority.json")).valid).toBe(true);
-    });
     it("should accept userinfoservice extension", function () {
         expect(validatePolicy(getJson("./json/extensions-userinfoservice.json")).valid).toBe(true);
     });

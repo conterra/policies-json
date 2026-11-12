@@ -134,12 +134,6 @@
                 "roles": {
                     "$ref": "#/definitions/policy-roles-type"
                 },
-                "priority": {
-                    "type": "integer",
-                    "minimum": 0,
-                    "default": 0,
-                    "description": "Priority of the policy. If several policies apply to a request, only those with the highest priority are used. Higher values take precedence."
-                },
                 "restrictions": {
                     "$ref": "#/definitions/policy-restrictions-type"
                 }
