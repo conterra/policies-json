@@ -206,6 +206,14 @@ describe("policies.schema.json", function () {
             `""priority" property must be >= 0"`
         );
     });
+    it("should accept a policy with the maximum priority", function () {
+        expect(validatePolicy(getJson("./json/policies-priority-max.json")).valid).toBe(true);
+    });
+    it("should not accept a policy with a priority above the maximum", function () {
+        expect(getErrors(validatePolicy(getJson("./json/policies-priority-too-large.json")))).toMatchInlineSnapshot(
+            `""priority" property must be <= 9007199254740991"`
+        );
+    });
     it("should not accept a policy with a decimal priority", function () {
         expect(getErrors(validatePolicy(getJson("./json/policies-priority-decimal.json")))).toMatchInlineSnapshot(
             `""priority" property type must be integer"`
